@@ -28,6 +28,7 @@ public class App {
      */
     static void problem1() {
         // Fill in your answer here.
+        System.out.println("Hello World");
     }
 
     /*
@@ -36,6 +37,14 @@ public class App {
      */
     static void problem2() {
         // Fill in your answer here.
+        int number = 1;
+        //int sum = 0;
+        // The test in this while statement will be true as long as number is less than or equal to 100.
+        while (number <= 10) {
+            //sum += number;
+            System.out.println(number);
+            number++;  // number++ is shorthand for number += 1, which is shorthand for number = number + 1
+        }
 
     }
 
@@ -53,6 +62,12 @@ public class App {
     static void problem3() {
         // Fill in your answer here.
 
+        for (int row = 1; row < 11; row++) {
+            for (int column = (row-1)*10+1; column < row*10+1; column++) {
+                System.out.print(column + " ");
+            }
+            System.out.println();
+        }
     }
 
     /*
@@ -62,7 +77,9 @@ public class App {
         int result = 1; // Think about why you want to have 1 and not 0 to start
 
         // Fill in your answer here.
-
+        for (int i = 0; i<y; i++) {
+            result = x * result;
+        }
         return result;
     }
 
@@ -91,8 +108,14 @@ public class App {
      */
     static void problem5() {
 	int x = 10;
-	int y = 5;
+    int y = 5;
         // Fill in your answer here.
+        for (int i = 1; i <= y; i++) {
+            for (int j = 1; j <= x; j++) {
+                System.out.print(power(i,j) + " ");
+            }
+        System.out.println();
+        }
 
     }
 
@@ -115,6 +138,20 @@ public class App {
         for (int i = 0; i<100; i++) {
             // Fill in your answer here.
             // Use if, else if, and else statements to decide what to print.
+            int test = i % 2;
+
+            if ((i % 2) == 0 && (i % 3) == 0) {
+                System.out.println("fizzbuzz");
+            }
+            else if (test == 0) {
+                System.out.println("fizz");
+            }
+            else if ((i % 3) == 0) {
+                System.out.println("buzz");
+            }
+            else {
+                System.out.println("nope");
+            }
         }
     }
 
@@ -124,10 +161,11 @@ public class App {
     */
     static int[] numbersUpToN(int n) {
         int[] integers = new int[n+1]; // Can you see why we need n+1 elements?
-        
+        for(int i = 0; i <= n; i++) {
+            integers[i] = i;
+        }
         // Fill in the "integers" array with the correct values
         // Hint: Use a for loop.
-            
         return integers;
     }
 
@@ -151,33 +189,48 @@ public class App {
 	// is whether or not we've crossed it off our list.
 
     	boolean[] possiblePrimes = new boolean[n];
-	// First: set all the elements of possiblePrimes to true.
-
+    // First: set all the elements of possiblePrimes to true.
+        for (int i = 0; i < n; i++ ) {
+            possiblePrimes[i] = true;
+            //System.out.println("index = " + i + "value = " + possiblePrimes[i]);
+        }
     	// Second: set possiblePrimes[0] and possiblePrimes[1] to false, since we know
     	// by definition that 0 and 1 are not prime.
-	
+        possiblePrimes[0] = false;
+        possiblePrimes[1] = false;
+        //System.out.println(possiblePrimes[0]);
+        //System.out.println(possiblePrimes[1]);
 	// Third: Make a for loop. Have a variable currentPossible that starts at 2, and have the
 	// loop continue for as long as currentPossible < n, and increment by 1.
 	
     	// Fourth: INSIDE the for loop mentioned above, make another for loop. This one should have
     	// a variable currentMultiple that starts at (currentPossible + currentPossible), and continues
     	// for as long as currentMultiple < n, and increment by currentPossible.
-	
+       
     	// Fifth, INSIDE this inner for loop, set possiblePrimes[currentMultiple] to false
-	
-	
+        
     	// Sixth: OK, this is outside of both for loops. Now you need to count how many elements in possiblePrimes
     	// are true. This is going to be the number of elements to return as primes.
+        for(int currentPossible = 2; currentPossible < n; currentPossible++) {
+            for(int currentMultiple = (currentPossible + currentPossible); currentMultiple < n; currentMultiple += currentPossible) {
+                possiblePrimes[currentMultiple] = false;
+            }
+        }
         
     	// Seventh: Create an array of ints big enough to fit all the primes
-        int[] primes = new int[0]; // Change 0 to the correct size
+        int[] primes = new int[25]; // Change 0 to the correct size
 
 	// Eighth: Create a variable currentPrimeIndex = 0
-
+        int currentPrimeIndex = 0;
     	// Ninth: Using a for loop with index i, go through the array of possiblePrimes. 
     	// Every time you find a true value, set primes[currentPrimeIndex] = i.
-    	// Then increment currentPrimeIndex
-	
+        // Then increment currentPrimeIndex
+        for (int i = 0; i < n; i++) {
+            if (possiblePrimes[i]) {
+                primes[currentPrimeIndex] = i; 
+                currentPrimeIndex++;
+            }
+        }
         // Tenth: Return primes.
         return primes;
     }
